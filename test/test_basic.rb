@@ -20,7 +20,7 @@ class TestBasic < MiniTest::Unit::TestCase
 
   def test_custom_initializer
     run_with(Basic, proc{ Basic.new('hi there')}) do
-      request('/1.0/val') do |http|
+      request('/1.0/var') do |http|
         assert_equal 200, http.response_header.status
         assert_equal 'hi there', http.response
         done

@@ -6,7 +6,7 @@ class MiniTest::Unit::TestCase
   def run_with(cls, optional_blk = nil, &blk)
     EM.run do
       optional_blk ? cls.run(&optional_blk) : cls.run
-      EM.add_timer(0.5) { EM.stop }
+      EM.add_timer(0.5) { assert false, "Stopped EM server because you didn't call done, or reach your done"; EM.stop }
       EM.next_tick(&blk)
     end
   end

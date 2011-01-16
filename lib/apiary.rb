@@ -22,13 +22,17 @@ module Apiary
     end
 
     def __set_routing(method, path)
-      @method, @path = method, path
+      @http_method, @path = method, path
     end
 
     def method_added(m)
-      MethodArgs.register(Callsite.parse(caller.first).filename)
-      @cmds ||= []
-      @cmds << ApiMethod.new(m, @http_method, @path)
+      if @http_method
+        MethodArgs.register(Callsite.parse(caller.first).filename)
+        @cmds ||= []
+        @cmds << ApiMethod.new(m, @http_method, @path)
+        @http_method = nil
+        @path = nil
+      end
     end
 
     def default_path(m)
