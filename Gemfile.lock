@@ -1,0 +1,45 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    addressable (2.2.2)
+    callsite (0.0.4)
+    daemons (1.1.0)
+    em-http-request (0.2.12)
+      addressable (>= 2.0.0)
+      eventmachine (>= 0.12.9)
+    eventmachine (0.12.10)
+    http_router (0.5.0)
+      rack (>= 1.0.0)
+      url_mount (~> 0.2.1)
+    method-args (0.1.0)
+      ruby2ruby (~> 1.2.4)
+      ruby_parser (~> 2.0)
+      sexp_processor (~> 3.0.4)
+    minitest (2.0.2)
+    rack (1.2.1)
+    rake (0.8.7)
+    ruby2ruby (1.2.5)
+      ruby_parser (~> 2.0)
+      sexp_processor (~> 3.0)
+    ruby_parser (2.0.5)
+      sexp_processor (~> 3.0)
+    sexp_processor (3.0.5)
+    thin (1.2.7)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
+    url_mount (0.2.1)
+      rack
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  callsite
+  em-http-request
+  http_router
+  method-args
+  minitest (~> 2.0.0)
+  rack
+  rake
+  thin
