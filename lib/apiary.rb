@@ -45,8 +45,7 @@ module Apiary
       end
     end
 
-    def run(port = 3000, &blk)
-      raise "No version specified" unless @version
+    def __as_app(&blk)
       router = HttpRouter.new
       @cmds.each do |cmd|
         path = "#{@version}/#{cmd.path || default_path(cmd.method)}".squeeze('/')
@@ -56,8 +55,14 @@ module Apiary
           Rack::Response.new((blk ? blk.call : new).send(cmd.method, *env['router.response'].param_values).to_s).finish
         }
       end
+      router
+    end
+
+    def run(port = 3000, &blk)
+      api = self
+      raise "No version specified" unless @version
       Thin::Server.new('0.0.0.0', port) {
-        run router
+        run api.__as_app(&blk)
       }.start
     end
   end
