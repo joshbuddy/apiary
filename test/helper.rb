@@ -3,9 +3,9 @@ require 'em-http'
 require 'test/fixtures/basic'
 
 class MiniTest::Unit::TestCase
-  def run_with(cls, &blk)
+  def run_with(cls, optional_blk = nil, &blk)
     EM.run do
-      cls.run
+      optional_blk ? cls.run(&optional_blk) : cls.run
       EM.add_timer(0.5) { EM.stop }
       EM.next_tick(&blk)
     end

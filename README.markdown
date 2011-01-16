@@ -15,12 +15,12 @@ Apiary let's you use any existing class and turn it into an API. For instance, s
 You can convert this to an API by annotating this class with three lines.
 
     class Temperature
-      include Apiary
+      include Apiary              # Include Apiary as a module in your class
 
-      version '1.0'
+      version '1.0'               # Specifies a version prefix for your api
 
-      get
-      def c2f(val)
+      get                         # Marks this method as accessible from GET
+      def c2f(val)                # This is now available at /1.0/c2f/:val
         Float(val) * 9 / 5 + 32
       end
     end
