@@ -17,4 +17,4 @@ Rake::RDocTask.new do |rd|
   rd.rdoc_dir = 'rdoc'
 end
 
-#Bundler::GemHelper.install_tasks
+Bundler::GemHelper.install_tasks

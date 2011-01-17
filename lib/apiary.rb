@@ -3,6 +3,7 @@ require 'callsite'
 require 'http_router'
 require 'thin'
 require 'rack'
+require 'apiary/version'
 
 module Apiary
   ApiMethod = Struct.new(:method, :http_method, :path)
