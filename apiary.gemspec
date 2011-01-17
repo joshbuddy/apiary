@@ -18,4 +18,14 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+  
+  s.add_dependency 'callsite'
+  s.add_dependency 'method-args'
+  s.add_dependency 'thin'
+  s.add_dependency 'http_router'
+  s.add_dependency 'rack'
+  s.add_dependency 'em-http-request'
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'minitest', '~> 2.0.0'
+  
 end

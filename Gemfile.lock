@@ -1,3 +1,14 @@
+PATH
+  remote: .
+  specs:
+    apiary (0.0.2)
+      callsite
+      em-http-request
+      http_router
+      method-args
+      rack
+      thin
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -35,6 +46,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apiary!
   callsite
   em-http-request
   http_router
