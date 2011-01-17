@@ -7,7 +7,9 @@ require 'apiary/version'
 
 module Apiary
   ApiMethod = Struct.new(:method, :http_method, :path)
-  
+
+  attr_accessor :rack_env
+
   module ClassMethods
 
     def get(path = nil)
@@ -60,8 +62,10 @@ module Apiary
         path = "#{@version}/#{cmd.path || default_path(cmd.method)}".squeeze('/')
         route = router.add(path)
         route.send(cmd.http_method) if cmd.http_method
-        route.to { |env| 
-          Rack::Response.new((blk ? blk.call : new).send(cmd.method, *env['router.response'].param_values).to_s).finish
+        route.to { |env|
+          instance = (blk ? blk.call : new)
+          instance.rack_env = env
+          Rack::Response.new(instance.send(cmd.method, *env['router.response'].param_values).to_s).finish
         }
       end
       router
