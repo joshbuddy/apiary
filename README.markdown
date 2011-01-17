@@ -12,7 +12,9 @@ Apiary let's you use any existing class and turn it into an API. For instance, s
       end
     end
     
-You can convert this to an API by annotating this class with three lines.
+You can convert this to an API by annotating this class with four lines.
+
+    require 'apiary'
 
     class Temperature
       include Apiary              # Include Apiary as a module in your class
@@ -32,3 +34,5 @@ Now, your API is complete! You can run this with `Temperature.run`. This will cr
 And you'll get back
 
     74.21
+    
+Currently, `get`, `post`, `put` and `delete` are supported. You can also supply a path after any verb to have a custom path. Also, the current Rack env hash is available under `rack_env` if you need to take a look at the current request.
