@@ -18,6 +18,14 @@ module Apiary
       __set_routing(:get, path)
     end
 
+    def put(path = nil)
+      __set_routing(:put, path)
+    end
+
+    def delete(path = nil)
+      __set_routing(:put, path)
+    end
+
     def version(number)
       @version = number
     end
