@@ -36,3 +36,15 @@ And you'll get back
     74.21
     
 Currently, `get`, `post`, `put` and `delete` are supported. You can also supply a path after any verb to have a custom path. Also, the current Rack env hash is available under `rack_env` if you need to take a look at the current request.
+
+## Async Usage
+
+If you want to use this in async mode, put an `a` in front of the method annotation. For instance
+
+    aget
+    def c2f(val)
+      EM.add_timer(0.1) do
+        async_response << "The temperature is :"
+        async_response.end(Float(val) * 9 / 5 + 32)
+      end
+    end

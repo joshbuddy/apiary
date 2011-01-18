@@ -3,7 +3,7 @@ require 'thin/async'
 module Apiary
   class AsyncResponse < Thin::AsyncResponse
     def end(out = nil)
-      self.<<(out) if out
+      self.<<(out.to_s) if out
       done
     end
   end
