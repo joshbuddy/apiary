@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    apiary (0.0.3)
+    apiary (0.0.4)
       callsite
       http_router
       method-args
