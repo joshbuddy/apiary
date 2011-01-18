@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'em-http'
 require 'test/fixtures/basic'
+require 'test/fixtures/basic_async'
 
 class MiniTest::Unit::TestCase
   def run_with(cls, optional_blk = nil, &blk)

@@ -4,45 +4,41 @@ require 'http_router'
 require 'thin'
 require 'rack'
 require 'apiary/version'
+require 'apiary/api_method'
+require 'apiary/async_response'
 
 module Apiary
-  ApiMethod = Struct.new(:method, :http_method, :path)
 
-  attr_accessor :rack_env
+  attr_accessor :rack_env, :async_response
 
   module ClassMethods
 
-    def get(path = nil)
-      __set_routing(:get, path)
-    end
+    [:get, :post, :put, :delete].each do |m|
+      class_eval "
+      def a#{m}(path=nil)
+        __set_routing(:get, path, true)
+      end
 
-    def post(path = nil)
-      __set_routing(:get, path)
-    end
-
-    def put(path = nil)
-      __set_routing(:put, path)
-    end
-
-    def delete(path = nil)
-      __set_routing(:put, path)
+      def #{m}(path=nil)
+        __set_routing(:get, path)
+      end
+      "
     end
 
     def version(number)
       @version = number
     end
 
-    def __set_routing(method, path)
-      @http_method, @path = method, path
+    def __set_routing(method, path, async = false)
+      @http_method, @path, @async = method, path, async
     end
 
     def method_added(m)
       if @http_method
         MethodArgs.register(Callsite.parse(caller.first).filename)
         @cmds ||= []
-        @cmds << ApiMethod.new(m, @http_method, @path)
-        @http_method = nil
-        @path = nil
+        @cmds << ApiMethod.new(m, @http_method, @path, @async)
+        @http_method, @path, @async = nil, nil, nil
       end
     end
 
@@ -65,7 +61,19 @@ module Apiary
         route.to { |env|
           instance = (blk ? blk.call : new)
           instance.rack_env = env
-          Rack::Response.new(instance.send(cmd.method, *env['router.response'].param_values).to_s).finish
+          response = AsyncResponse.new(env)
+          if cmd.async?
+            instance.async_response = response
+            instance.send(cmd.method, *env['router.response'].param_values)
+          else
+            EM.defer(proc{
+              response.status = 200
+              response << instance.send(cmd.method, *env['router.response'].param_values).to_s
+            }, proc{
+              response.done
+            })
+          end
+          response.finish
         }
       end
       router

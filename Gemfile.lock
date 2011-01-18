@@ -1,13 +1,13 @@
 PATH
   remote: .
   specs:
-    apiary (0.0.2)
+    apiary (0.0.3)
       callsite
-      em-http-request
       http_router
       method-args
       rack
       thin
+      thin_async
 
 GEM
   remote: http://rubygems.org/
@@ -39,6 +39,8 @@ GEM
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
+    thin_async (0.1.1)
+      thin (>= 1.2.1)
     url_mount (0.2.1)
       rack
 
@@ -55,3 +57,4 @@ DEPENDENCIES
   rack
   rake
   thin
+  thin_async

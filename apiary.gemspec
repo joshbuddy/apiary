@@ -24,8 +24,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'thin'
   s.add_dependency 'http_router'
   s.add_dependency 'rack'
-  s.add_dependency 'em-http-request'
+  s.add_dependency 'thin_async'
   s.add_development_dependency 'rake'
+  s.add_development_dependency 'em-http-request'
   s.add_development_dependency 'minitest', '~> 2.0.0'
-  
 end
