@@ -1,4 +1,4 @@
-require 'method_args'
+require 'parameters_extra'
 require 'callsite'
 require 'http_router'
 require 'thin'
@@ -35,7 +35,7 @@ module Apiary
 
     def method_added(m)
       if @http_method
-        MethodArgs.register(Callsite.parse(caller.first).filename)
+        ParametersExtra.register(Callsite.parse(caller.first).filename)
         @cmds ||= []
         @cmds << ApiMethod.new(m, @http_method, @path, @async)
         @http_method, @path, @async = nil, nil, nil
@@ -43,7 +43,7 @@ module Apiary
     end
 
     def default_path(m)
-      instance_method(m).args.inject(m.to_s) do |path, arg|
+      instance_method(m).parameters_extra.inject(m.to_s) do |path, arg|
         path << case arg.type
         when :required then "/:#{arg.name}"
         when :optional then "/(:#{arg.name})"

@@ -4,7 +4,7 @@ PATH
     apiary (0.0.4)
       callsite
       http_router
-      method-args
+      parameters_extra (~> 0.2.0)
       rack
       thin
       thin_async
@@ -22,11 +22,11 @@ GEM
     http_router (0.5.0)
       rack (>= 1.0.0)
       url_mount (~> 0.2.1)
-    method-args (0.1.0)
+    minitest (2.0.2)
+    parameters_extra (0.2.0)
       ruby2ruby (~> 1.2.4)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0.4)
-    minitest (2.0.2)
     rack (1.2.1)
     rake (0.8.7)
     ruby2ruby (1.2.5)
@@ -52,8 +52,8 @@ DEPENDENCIES
   callsite
   em-http-request
   http_router
-  method-args
   minitest (~> 2.0.0)
+  parameters_extra (~> 0.2.0)
   rack
   rake
   thin

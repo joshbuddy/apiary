@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   
   s.add_dependency 'callsite'
-  s.add_dependency 'method-args'
+  s.add_dependency 'parameters_extra', "~> 0.2.0"
   s.add_dependency 'thin'
   s.add_dependency 'http_router'
   s.add_dependency 'rack'
